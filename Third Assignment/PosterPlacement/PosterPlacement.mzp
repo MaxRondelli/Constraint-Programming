@@ -4,6 +4,8 @@
     ],
     "openTab": 0,
     "projectFiles": [
+        "19x19.dzn",
+        "20x20.dzn",
         "PosterPlacement.mzn"
     ],
     "selectedBuiltinConfigId": "org.gecode.gecode",
