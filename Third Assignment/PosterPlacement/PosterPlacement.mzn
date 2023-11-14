@@ -6,43 +6,39 @@ int: w;
 int: h; 
 array[1..n] of var int: ws;
 array[1..n] of var int: hs;
-
-array[1..n] of var int: X;
-array[1..n] of var int: Y;
-array[1..n] of var int: perimeter;
+array[1..n*2] of var int: allvars;
 
 %array[1..n] of var int: ordxered_perimeter;
 
-array[1..n] of var 0..w: shapeX; 
-array[1..n] of var 0..h: shapeY; 
+array[1..n] of var 0..w-1: X; 
+array[1..n] of var 0..h-1: Y; 
 
-% Each shape must be inside the square
-constraint forall(i in 1..n)(shapeX[i] >= 0 /\ shapeX[i] + ws[i] <= w /\ shapeY[i] >= 0 /\ shapeY[i] + hs[i] <= h);
-
-% calculation of the perimeter
-constraint forall (i in 1..n) (perimeter[i]=2*(ws[i]+hs[i]));
-
-array[1..n] of var 1..n: ordered_indices=reverse(sort(perimeter));
-
-constraint diffn([shapeX[i] | i in ordered_indices],
-                 [shapeY[i] | i in ordered_indices],
-                 [ws[i] | i in ordered_indices],
-                 [hs[i] | i in ordered_indices]);
+% Each shape must be inside the sallvarsuare
+constraint forall(i in 1..n)(X[i] >= 0 /\ X[i] + ws[i] <= w /\ Y[i] >= 0 /\ Y[i] + hs[i] <= h);
 
 %ordered perimeter
 
-%constraint ordered_perimeter= forall(i in 1..n)(index_set_reverse(sort_by(perimeter,i));
-%constraint forall (i in 1..n)(order_perimeter[i]
-%constraint ordered_perimeter= index_set_reverse(sort_by(perimeter,i));
+constraint forall (i in 0..n-1)(allvars[2*i]=Y[i] /\ allvars[2*i-1]=X[i]);
+
 
 % No overlap with diffn global constraint
-constraint diffn(shapeX, shapeY, ws, hs);
-
+constraint diffn(X, Y, ws, hs);
 
 solve satisfy;
 
 %input order - min value
-%solve:: int_search(q,input_order,indomain_min) satisfy;
-
+%solve:: int_seach(allvars,input_order,indomain_min) satisfy;
 %input order - random value
-%solve:: int_search(q,input_order, indomain_random)
+%solve:: int_search(allvars, input_order, indomain_random) satisfy;
+ 
+%min domain size - min value
+%solve:: int_search (allvars,first_fail, indomain_min) satisfy;
+
+%min domain size - random value
+%solve:: int_search (allvars,first_fail, indomain_random) satisfy;
+
+%domWdeg - minvalue
+%solve:: int_search (allvars, dom_w_deg,indomain_min) satisfy;
+
+%domWdeg - random value
+%solve:: int_search (allvars, dom_w_deg,indomain_random) satisfy;
