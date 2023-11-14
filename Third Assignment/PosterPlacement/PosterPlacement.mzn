@@ -4,12 +4,9 @@ include "globals.mzn";
 int: n;  
 int: w;  
 int: h; 
-array[1..n] of var int: ws;
-array[1..n] of var int: hs;
-array[1..n*2] of var int: allvars;
-
-%array[1..n] of var int: ordxered_perimeter;
-
+array[1..n] of var 0..w-1: ws;
+array[1..n] of var 0..h-1: hs;
+array[1..n*2] of var 0..max(w-1, h-1): allvars;
 array[1..n] of var 0..w-1: X; 
 array[1..n] of var 0..h-1: Y; 
 
@@ -17,17 +14,15 @@ array[1..n] of var 0..h-1: Y;
 constraint forall(i in 1..n)(X[i] >= 0 /\ X[i] + ws[i] <= w /\ Y[i] >= 0 /\ Y[i] + hs[i] <= h);
 
 %ordered perimeter
-
-constraint forall (i in 0..n-1)(allvars[2*i]=Y[i] /\ allvars[2*i-1]=X[i]);
+constraint forall (i in 1..n)(allvars[2*i]=Y[i] /\ allvars[2*i-1]=X[i]);
 
 
 % No overlap with diffn global constraint
 constraint diffn(X, Y, ws, hs);
 
-solve satisfy;
+%input order - min value 
+solve:: int_search(allvars,input_order,indomain_min) satisfy;
 
-%input order - min value
-%solve:: int_seach(allvars,input_order,indomain_min) satisfy;
 %input order - random value
 %solve:: int_search(allvars, input_order, indomain_random) satisfy;
  
