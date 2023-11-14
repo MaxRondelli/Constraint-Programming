@@ -1,8 +1,10 @@
 {
     "openFiles": [
+        "NQueensModel.mzn"
     ],
-    "openTab": -1,
+    "openTab": 0,
     "projectFiles": [
+        "NQueensModel.mzn"
     ],
     "selectedBuiltinConfigId": "org.gecode.gecode",
     "selectedBuiltinConfigVersion": "6.3.0",
