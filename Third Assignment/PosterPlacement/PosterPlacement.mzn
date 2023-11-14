@@ -16,7 +16,6 @@ constraint forall(i in 1..n)(X[i] >= 0 /\ X[i] + ws[i] <= w /\ Y[i] >= 0 /\ Y[i]
 %ordered perimeter
 constraint forall (i in 1..n)(allvars[2*i]=Y[i] /\ allvars[2*i-1]=X[i]);
 
-
 % No overlap with diffn global constraint
 constraint diffn(X, Y, ws, hs);
 
