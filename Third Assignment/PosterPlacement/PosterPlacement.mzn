@@ -26,7 +26,7 @@ constraint diffn(X, Y, ws, hs);
 %solve:: int_search(allvars, input_order, indomain_min) satisfy;
 
 %input order - random value
-solve:: int_search(allvars, input_order, indomain_random) satisfy;
+%solve:: int_search(allvars, input_order, indomain_random) satisfy;
  
 %min domain size - min value
 %solve:: int_search (allvars,first_fail, indomain_min) satisfy;

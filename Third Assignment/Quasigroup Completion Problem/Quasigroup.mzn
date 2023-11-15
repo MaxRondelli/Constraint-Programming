@@ -1,4 +1,4 @@
-include "alldifferent.mzn";
+include "globals.mzn";
 
 int: N;
 array[1..N, 1..N] of var int: start;
@@ -17,4 +17,11 @@ constraint forall(j in 1..N)(
 );
 
 
-solve satisfy;
+% ------- Default search -------
+% solve satisfy;
+
+% ------- domWdeg - random value -------
+%solve:: int_search(square, dom_w_deg, indomain_random) satisfy;
+
+% ------- domWdeg - random value + restarting (employing the Luby strategy with L = 250 -------
+solve:: int_search(square, dom_w_deg, indomain_random) :: restart_luby(250) satisfy;
