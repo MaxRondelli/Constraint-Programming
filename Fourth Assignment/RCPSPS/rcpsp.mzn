@@ -15,7 +15,6 @@ array[RESOURCES,TASKS] of int: req; %Resource requirements of tasks
 
 % Precendence constraints between some tasks
 int: p;       % Number of precedence relations
-int: available_res;
 set of int: PREC = 1..p;
 array[PREC,1..2] of TASKS: pre; % Precedence relations
 
@@ -32,7 +31,7 @@ var 0..available_time: end; %makespan (end of the last activities)
 %------------------ CONSTRAINTS--------------------
 constraint forall(t in TASKS,r in 0..pre[t,2])
 (
-    start[t]+duration[t]<=start[r]
+    start[t]+duration[t]<= start[r]
 );
 
 %---------------NON-OVERLAPPING CONSTRAINT---------------------
@@ -55,7 +54,7 @@ constraint forall(i,j in TASKS where i<j)(
 
 
 % Cumulative constraints for each resource
-constraint forall(i in TASKS where req[i,2]=={})
+constraint forall(i in TASKS)
 (
     start[i]+duration[i]<=end
 );
