@@ -15,13 +15,7 @@ array[RESOURCES,TASKS] of int: req; %Resource requirements of tasks
 int: p;       % Number of precedence relations
 set of int: PREC = 1..p;
 array[PREC,1..2] of TASKS: pre; % Precedence relations
+ 
 
-int: available_time = 165;
-
-array[TASKS] of var 0..available_time: start;
-var 0..available_time: end;
-
-% Precedence constraints for each a_i -> a_j
-
-% Cumulative constraints for each resource
-constraint cumulative(start, duration,  );
+int: max_duration = sum(i in TASKS)(duration[i]);
+set of int: Times = 0..(max_duration - 1);
