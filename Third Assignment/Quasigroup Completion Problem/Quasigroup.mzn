@@ -1,8 +1,8 @@
 include "globals.mzn";
 
 int: N;
-array[1..N, 1..N] of var int: start;
-array[1..N, 1..N] of var 0..N: square;
+array[1..N, 1..N] of int: start;
+array[1..N, 1..N] of var 1..N: square;
 
 
 % If the value is different from 0, it means that it already has a color, so 
@@ -15,7 +15,7 @@ constraint forall(j in 1..N)(alldifferent([square[i, j] | i in 1..N])::domain);
 
 
 % ------- Default search -------
-solve satisfy;
+%solve satisfy;
 
 % ------- domWdeg - random value -------
 %solve:: int_search(square, dom_w_deg, indomain_random) satisfy;
