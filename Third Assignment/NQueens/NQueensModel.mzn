@@ -12,7 +12,7 @@ constraint alldifferent([q[i]-i | i in 1..n])::domain;
 %solve satisfy;
 
 %input order - min value
-%solve:: int_seach(q,input_order,indomain_min) satisfy;
+%solve:: int_search(q,input_order,indomain_min) satisfy;
 
 %input order - random value
 %solve:: int_search(q, input_order, indomain_random) satisfy;

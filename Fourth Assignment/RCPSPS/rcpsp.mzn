@@ -16,6 +16,7 @@ array[RESOURCES,TASKS] of int: req; %Resource requirements of tasks
 % Precendence constraints between some tasks
 int: p;                             % Number of precedence relations
 set of int: PREC = 1..p;
+
 array[PREC,1..2] of TASKS: pre;     % Precedence relations
 
 
