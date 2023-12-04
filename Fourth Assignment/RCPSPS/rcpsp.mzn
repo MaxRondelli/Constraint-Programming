@@ -25,21 +25,20 @@ int: available_time = 165;
 %planning horizon
 
 int: t_max= sum (i in TASKS)(duration[i]);
-set of int: Times=0..(t_max-1);     %possible starting time
 
 %---------------------MODEL VARIABLES---------------------------------
 
-array[TASKS] of var 0..available_time: start;  %starting time
+array[TASKS] of var 0..t_max: start;  %starting time
 var 0..available_time: end;         %makespan (end of the last activities)  
 
 
 %------------------ CONSTRAINTS--------------------
 
-%constraint forall(t in TASKS)
-%(
-  %start[t]+duration[t]<start[pre[t,2]]
+constraint forall(j in PREC)(start[pre[j,2]] >= start[pre[j,1]]+duration[pre[j,1]])::domain; 
 
-%);
+constraint forall(i in RESOURCES)(cumulative(start,duration,req[i,TASKS],L[i]))::domain;  
+var 0..t_max: start_last = max(start);
+
 
 
 
@@ -52,8 +51,6 @@ constraint forall(r in RESOURCES)
         set of int: RTasks = 
                     {i | i in TASKS where req[r,i]>0 /\ duration[i]>0},
                     int: sum_rr= sum(i in RTasks)(req[r,i])
-      
-      
       }
       in(
         if (RTasks !={} /\ sum_rr> L[r]) then
@@ -82,8 +79,8 @@ constraint forall(i in TASKS)
 %cumulative(starting time, duration, resource requirements, capacity)
 
 
-
-
+solve minimize start_last;
+%solve :: int_search(start_time, first_fail, indomain_min) satisfy;
 
 
 output [
