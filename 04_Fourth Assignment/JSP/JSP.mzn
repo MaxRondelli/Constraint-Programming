@@ -20,7 +20,6 @@ constraint forall(j in JOB, i in TASK)(S[j, i] >= 0);
 constraint forall(j in JOB, i in 1..M - 1)(S[j, i + 1] >= S[j, i] + duration[j, machine[j, i]]);
 
 % Disjunctive constraint
-% Disjunctive constraint
 constraint forall(m in MACH)(
   forall(j1 in JOB, j2 in JOB where j1 < j2)(
     let {
