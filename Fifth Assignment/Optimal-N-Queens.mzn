@@ -16,19 +16,16 @@ constraint alldifferent([q[i] + i | i in 1..n])::domain;
 constraint alldifferent([q[i]-i | i in 1..n])::domain;
 
 % Minimize the total distance of the queens to the main diagonal
+var int: obj = sum(i in 1..n)(abs(q[i] - i));
 
 % ------- Default search -------
-%solve satisfy;
+% solve minimize obj;
 
 % ------- domWdeg - random value -------
-%solve:: int_search(q, dom_w_deg, indomain_random) satisfy;
+% solve:: int_search(q, dom_w_deg, indomain_random) minimize obj;
 
 % ------- domWdeg - random value + restarting -------
-%solve :: int_search(q, dom_w_deg, indomain_random) :: restart_luby(250) satisfy;
+% solve :: int_search(q, dom_w_deg, indomain_random) :: restart_luby(250) minimize obj;
 
 % ------- domWdeg - random value + restarting + lns -------
-solve 
-    :: int_search(q, dom_w_deg, indomain_random) 
-    :: restart_luby(250)
-    :: relax_and_reconstruct(q, 85)
-    satisfy;
+% solve :: int_search(q, dom_w_deg, indomain_random) :: restart_luby(250) :: relax_and_reconstruct(q, 85) minimize obj;
