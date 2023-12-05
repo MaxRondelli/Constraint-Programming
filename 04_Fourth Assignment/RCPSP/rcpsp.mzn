@@ -22,17 +22,14 @@ array[PREC,1..2] of TASKS: pre;     % Precedence relations
 
 int: available_time = 165;
 
-%planning horizon
-
 int: t_max= sum (i in TASKS)(duration[i]);
 
-%---------------------MODEL VARIABLES---------------------------------
-
+% --------- MODEL VARIABLES ---------
 array[TASKS] of var 0..t_max: start;  %starting time
-var 0..available_time: end;         %makespan (end of the last activities)  
+var 0..available_time: end;           %makespan (end of the last activities)  
 
 
-%------------------ CONSTRAINTS--------------------
+% --------- CONSTRAINTS ---------
 
 constraint forall(j in PREC)(start[pre[j,2]] >= start[pre[j,1]]+duration[pre[j,1]])::domain; 
 
@@ -42,8 +39,7 @@ var 0..t_max: start_last = max(start);
 
 
 
-%------------------ PRECEDENCE CONSTRAINT -------------
-
+% --------- PRECEDENCE CONSTRAINT ---------
 constraint forall(r in RESOURCES)
 (
 
@@ -56,10 +52,10 @@ constraint forall(r in RESOURCES)
         if (RTasks !={} /\ sum_rr> L[r]) then
         (
             cumulative(
-              [start[i] | i in TASKS],     %starting time
-              [duration[i] | i in TASKS],  %duration time of the task
-              [req[r,i]| i in TASKS],      %resource requirements of the task
-              L[r]      %resource capacities of the specific resource
+              [start[i] | i in TASKS],     % starting time
+              [duration[i] | i in TASKS],  % duration time of the task
+              [req[r,i]| i in TASKS],      % resource requirements of the task
+              L[r]      % resource capacities of the specific resource
            )
         )
         else
@@ -69,18 +65,18 @@ constraint forall(r in RESOURCES)
     
 );
 
-%---------------- CONSTRAINT OF THE MAKESPAN ------------------
+% --------- CONSTRAINT OF THE MAKESPAN ---------
 %check tasks are inside the maximum time
 
 constraint forall(i in TASKS)
 (
-  start[i]+duration[i]<end
+  start[i] + duration[i] < end
 );
 %cumulative(starting time, duration, resource requirements, capacity)
 
 
 solve minimize start_last;
-%solve :: int_search(start_time, first_fail, indomain_min) satisfy;
+% solve :: int_search(start_time, first_fail, indomain_min) satisfy;
 
 
 output [
