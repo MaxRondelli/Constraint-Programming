@@ -11,7 +11,7 @@ array[JOB, TASK] of MACH: machine;                         % machines for tasks
 array[JOB, MACH] of int: duration;                         % task durations on machines
 
 int: maximum_duration= sum(duration);                      % maximum duration of tasks
-array[JOB, MACH] of var 1..maximum_duration: start;
+array[JOB, MACH] of var 0..maximum_duration: start;
 
 % ------ Makespan ------
 var int: makespan = max(job in JOB, machines in MACH)(start[job, machines] + duration[job, machines]); 

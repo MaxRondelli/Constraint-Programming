@@ -22,10 +22,10 @@ var int: obj = sum(i in 1..n)(abs(q[i] - i));
 % solve minimize obj;
 
 % ------- domWdeg - random value -------
-% solve:: int_search(q, dom_w_deg, indomain_random) minimize obj;
+solve:: int_search(q, dom_w_deg, indomain_random) minimize obj;
 
 % ------- domWdeg - random value + restarting -------
-% solve :: int_search(q, dom_w_deg, indomain_random) :: restart_luby(250) minimize obj;
+%solve :: int_search(q, dom_w_deg, indomain_random) :: restart_luby(250) minimize obj;
 
 % ------- domWdeg - random value + restarting + lns -------
 % solve :: int_search(q, dom_w_deg, indomain_random) :: restart_luby(250) :: relax_and_reconstruct(q, 85) minimize obj;
