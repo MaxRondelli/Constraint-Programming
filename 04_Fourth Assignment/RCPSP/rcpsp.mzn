@@ -34,5 +34,7 @@ constraint forall(resource in RESOURCES)(cumulative(start, duration, req[resourc
 % ------ Indomain Min ------
 % solve :: int_search(start, first_fail, indomain_min) minimize makespan ;
 
+solve :: int_search(start, smallest, indomain_min) minimize makespan ;
+
 
 output ["makespan=\(makespan)"];
