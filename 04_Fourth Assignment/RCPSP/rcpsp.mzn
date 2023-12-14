@@ -29,12 +29,10 @@ constraint forall(job in PREC)(start[pre[job, 2]] >= start[pre[job, 1]] + durati
 constraint forall(resource in RESOURCES)(cumulative(start, duration, req[resource, TASKS], L[resource]))::domain;
 
 % ------ Default Search ------
-% solve minimize makespan;
+solve minimize makespan;
 
 % ------ Indomain Min ------
-% solve :: int_search(start, first_fail, indomain_min) minimize makespan ;
-
-solve :: int_search(start, smallest, indomain_min) minimize makespan ;
+% solve :: int_search(start, smallest, indomain_min) minimize makespan ;
 
 
 output ["makespan=\(makespan)"];
