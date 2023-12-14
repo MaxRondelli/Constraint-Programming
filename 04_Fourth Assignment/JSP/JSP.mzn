@@ -23,10 +23,10 @@ constraint forall(i in 1..J, j in 1..(M-1))(start[i, machine[i, j + 1]] >= start
 constraint forall(mach in MACH)(disjunctive(start[JOB, mach], duration[JOB, mach]))::domain;
 
 % ------ Default Search ------
-solve minimize makespan; 
+% solve minimize makespan; 
 
 % ------ Indomain Min ------
-% solve :: int_search(start, first_fail, indomain_min) minimize makespan;
+solve :: int_search(start, smallest, indomain_min) minimize makespan;
 
 % Output makespan
 output ["Makespan: \(makespan)"] ++ ["\nStart times:\n"] ++ [show(start)];
