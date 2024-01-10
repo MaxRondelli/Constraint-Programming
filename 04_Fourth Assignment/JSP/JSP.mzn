@@ -28,7 +28,7 @@ constraint forall(mach in MACH)(disjunctive([start[job, i] | job in JOB, i in TA
 % ------ Default Search ------
 % solve minimize dummyTask;
 
-% ------ Indomain Min ------
+% ------ Smallest ------
 solve :: int_search(start, smallest, indomain_min) minimize dummyTask;
 
 % Output makespan
